@@ -1,7 +1,7 @@
-export MY_IP=10.10.0.3
-export NET_NAME=em2
+MY_IP=10.10.0.3
+NET_NAME=em2
 
-export DATABASE_INIT_SQL="
+DATABASE_INIT_SQL="
 #keystone service
 CREATE DATABASE keystone;
 GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'localhost'  IDENTIFIED BY '"$KEYSTONE_DBPASS"';

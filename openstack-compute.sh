@@ -1,3 +1,4 @@
+#!/bin/bash
 
 MY_IP=10.10.0.2
 VNC_PROXY=192.168.0.156 #VNC代理外网IP地址

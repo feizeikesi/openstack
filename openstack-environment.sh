@@ -1,3 +1,4 @@
+#!/bin/bash
 export DATABASE_PASS=123456
 export ADMIN_PASS=123456
 export CINDER_DBPASS=123456
