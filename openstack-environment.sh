@@ -32,3 +32,22 @@ sleep 1
 
 echo 'OpenStack客户端 openstack工具'
 yum install -y python-openstackclient openstack-selinux  openstack-utils  python2-PyMySQL  
+
+echo '修改并发数'
+echo '
+* soft nofile 65536  
+* hard nofile 65536 
+'>>/etc/security/limits.conf
+
+echo '
+fs.file-max=655350  
+net.ipv4.ip_local_port_range = 1025 65000  
+net.ipv4.tcp_tw_recycle = 1 
+'>>/etc/sysctl.conf
+
+sysctl -p
+
+echo '时间同步'
+/usr/sbin/ntpdate ntp6.aliyun.com
+echo "*/3 * * * * /usr/sbin/ntpdate ntp6.aliyun.com  &> /dev/null" > /tmp/crontab
+crontab /tmp/crontab

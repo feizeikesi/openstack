@@ -5,6 +5,7 @@ rm -f /var/log/neutron/*
 rm -f /var/log/glance/*
 rm -f /var/log/keystone/*
 rm -f /var/log/httpd/*
+rm -f /var/log/cinder/*
 
 #过滤错误日志
 grep 'ERROR' /var/log/nova/*
@@ -12,6 +13,13 @@ grep 'ERROR' /var/log/neutron/*
 grep 'ERROR' /var/log/glance/*
 grep 'ERROR' /var/log/keystone/*
 grep 'ERROR' /var/log/httpd/*
+grep 'ERROR' /var/log/cinder/*
+
+#当前机器服务列表
+openstack-service list
+
+#重启当前机器服务
+openstack-service restart
 
 #虚拟机网络正常，网页控制台报错 "错误：无法连接到Neutron"
 sed -i "s#'enable_router': True#'enable_router': False#" /etc/openstack-dashboard/local_settings
@@ -30,3 +38,13 @@ openstack subnet create --network provider \
   --allocation-pool start=10.10.1.2,end=10.10.1.253 \
   --dns-nameserver 8.8.4.4 --gateway 10.10.1.1 \
   --subnet-range 10.10.1.0/24 provider
+  
+#Update driver status failed: (config name lvm) is uninitialized
+echo '
+Defaults:cinder !requiretty
+
+cinder ALL = (ALL) NOPASSWD: ALL
+'>/etc/sudoers.d/cinder
+
+
+show  processlist;
